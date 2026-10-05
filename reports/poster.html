@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NBA MVP Prediction - ML Mini Project Poster</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .poster {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 8px;
+        }
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 18px;
+        }
+        .section {
+            background: #fafafa;
+            border-left: 4px solid #2a5298;
+            padding: 15px;
+            border-radius: 4px;
+        }
+        .section h2 {
+            color: #1e3c72;
+            font-size: 1.15em;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 5px;
+        }
+        .section p, .section li {
+            font-size: 0.92em;
+            line-height: 1.45;
+            color: #333;
+        }
+        .section ul {
+            margin-left: 18px;
+        }
+        .section li {
+            margin-bottom: 4px;
+        }
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        .two-thirds {
+            grid-column: 1 / 3;
+        }
+        .one-third {
+            grid-column: 3 / 4;
+        }
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            align-items: start;
+        }
+        .metric-box {
+            background: #e8f4f8;
+            padding: 12px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .metric-box h3 {
+            font-size: 0.95em;
+            color: #1e3c72;
+            margin-bottom: 6px;
+        }
+        .metric-box .value {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: #2a5298;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85em;
+            margin-top: 8px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 6px;
+            text-align: center;
+        }
+        th {
+            background: #1e3c72;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+        .figure {
+            text-align: center;
+            margin-top: 8px;
+        }
+        .figure img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .caption {
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 4px;
+        }
+        .references {
+            font-size: 0.78em;
+            color: #555;
+        }
+        @media print {
+            body { background: white; padding: 0; }
+            .poster { box-shadow: none; max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="poster">
+        <div class="header">
+            <h1>Predicting the NBA MVP with Machine Learning</h1>
+            <p>A comparison of Naive Bayes and Logistic Regression</p>
+        </div>
+
+        <div class="grid">
+            <div class="section">
+                <h2>Motivation</h2>
+                <p>The NBA MVP is voted by sportswriters, making the decision partly subjective. This project asks whether machine learning can predict the MVP using only objective season statistics, and compares a generative model (Naive Bayes) against a discriminative model (Logistic Regression).</p>
+            </div>
+
+            <div class="section">
+                <h2>Dataset</h2>
+                <ul>
+                    <li><strong>Source:</strong> Kaggle / Basketball-Reference</li>
+                    <li><strong>Seasons:</strong> 2000-01 to 2019-20</li>
+                    <li><strong>Rows:</strong> 60 (20 seasons × top 3 finalists)</li>
+                    <li><strong>Train:</strong> 2000-01 to 2015-16 (48 rows)</li>
+                    <li><strong>Test:</strong> 2016-17 to 2019-20 (12 rows)</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Features</h2>
+                <ul>
+                    <li>Games played, Minutes per game</li>
+                    <li>FG%, 3P%, FT%</li>
+                    <li>Rebounds, Assists, Steals, Blocks per game</li>
+                    <li>Points per game</li>
+                </ul>
+            </div>
+
+            <div class="section two-thirds">
+                <h2>Methods</h2>
+                <p><strong>Naive Bayes (GaussianNB):</strong> A probabilistic generative classifier that assumes feature independence. Fast and effective on small datasets.</p>
+                <p><strong>Logistic Regression:</strong> A discriminative linear classifier that directly models the probability of the MVP class. Features were standardized before training.</p>
+                <p><strong>Two evaluation modes:</strong></p>
+                <ul>
+                    <li><strong>Pure:</strong> classify any finalist as MVP or not.</li>
+                    <li><strong>Seasonal:</strong> pick exactly one MVP from the three finalists each season.</li>
+                </ul>
+            </div>
+
+            <div class="section one-third">
+                <h2>Key Result</h2>
+                <div class="metric-box">
+                    <h3>Best Seasonal Accuracy</h3>
+                    <div class="value">66.7%</div>
+                    <p>Logistic Regression</p>
+                </div>
+            </div>
+
+            <div class="section full-width">
+                <h2>Results</h2>
+                <div class="results-grid">
+                    <div>
+                        <table>
+                            <tr>
+                                <th>Model</th>
+                                <th>Train (pure)</th>
+                                <th>Test (pure)</th>
+                                <th>Test (seasonal)</th>
+                            </tr>
+                            <tr>
+                                <td>Naive Bayes</td>
+                                <td>60.4%</td>
+                                <td>41.7%</td>
+                                <td>50.0%</td>
+                            </tr>
+                            <tr>
+                                <td>Logistic Regression</td>
+                                <td>79.2%</td>
+                                <td>50.0%</td>
+                                <td>66.7%</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="figure">
+                        <img src="figures/accuracy_comparison.png" alt="Accuracy comparison">
+                        <div class="caption">Figure 1: Accuracy across train/test and evaluation modes.</div>
+                    </div>
+                </div>
+                <div class="results-grid" style="margin-top: 15px;">
+                    <div class="figure">
+                        <img src="figures/confusion_matrices.png" alt="Confusion matrices">
+                        <div class="caption">Figure 2: Confusion matrices for pure-mode predictions.</div>
+                    </div>
+                    <div class="figure">
+                        <img src="figures/feature_importance.png" alt="Feature importance">
+                        <div class="caption">Figure 3: Logistic Regression coefficients (feature importance).</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Discussion</h2>
+                <p>Logistic Regression outperforms Naive Bayes, especially in seasonal mode. The top predictive features are assists, free-throw percentage, points, blocks, and rebounds. However, the small dataset (60 rows) limits generalization. Models also miss narrative factors such as team wins, media hype, and voter bias.</p>
+            </div>
+
+            <div class="section">
+                <h2>Future Work</h2>
+                <ul>
+                    <li>Add team-level features: wins, seed, point differential.</li>
+                    <li>Include advanced stats: PER, win shares, VORP.</li>
+                    <li>Expand the dataset to more seasons.</li>
+                    <li>Try ensemble models: Random Forest, XGBoost.</li>
+                </ul>
+            </div>
+
+            <div class="section references">
+                <h2>References</h2>
+                <p>1. Basketball-Reference. NBA Player Stats. https://www.basketball-reference.com/</p>
+                <p>2. Kaggle. NBA Player Season Statistics with MVP Win Share. https://www.kaggle.com/datasets/robertsunderhaft/nba-player-season-statistics-with-mvp-win-share</p>
+                <p>3. scikit-learn documentation. https://scikit-learn.org/</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
