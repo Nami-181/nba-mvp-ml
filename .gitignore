@@ -12,10 +12,10 @@ env/
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# Data (keep raw/processed CSVs out of git if large, but we'll commit small ones)
-# Uncomment the next lines if you do not want data files in the repo
-# data/raw/*.csv
-# data/processed/*.csv
+# Data: keep raw downloaded data out of repo (script re-downloads it)
+# but commit the small processed dataset for convenience
+data/raw/*
+!data/raw/.gitkeep
 
 # OS
 .DS_Store
