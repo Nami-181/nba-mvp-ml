@@ -5,140 +5,172 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NBA MVP Prediction - ML Mini Project Poster</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            padding: 20px;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: #eef2f7;
+            padding: 25px;
+            color: #2c3e50;
+            line-height: 1.45;
         }
         .poster {
             width: 100%;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            background: white;
-            padding: 30px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            background: #ffffff;
+            padding: 28px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            border-radius: 10px;
         }
         .header {
             text-align: center;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #1a2a6c 0%, #2a5298 100%);
             color: white;
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 28px;
+            border-radius: 10px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(26,42,108,0.25);
         }
         .header h1 {
-            font-size: 2.2em;
-            margin-bottom: 8px;
+            font-size: 2.4em;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
         }
         .header p {
-            font-size: 1.1em;
+            font-size: 1.15em;
             opacity: 0.95;
+            font-weight: 300;
         }
         .grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(3, 1fr);
             gap: 18px;
         }
         .section {
-            background: #fafafa;
-            border-left: 4px solid #2a5298;
-            padding: 15px;
-            border-radius: 4px;
+            background: #fafbfc;
+            border-radius: 8px;
+            padding: 16px;
+            border-top: 5px solid #2a5298;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
         }
         .section h2 {
-            color: #1e3c72;
+            color: #1a2a6c;
             font-size: 1.15em;
             margin-bottom: 10px;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 5px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #e1e8ed;
         }
         .section p, .section li {
             font-size: 0.92em;
-            line-height: 1.45;
-            color: #333;
+            color: #34495e;
         }
         .section ul {
             margin-left: 18px;
+            margin-top: 6px;
         }
-        .section li {
-            margin-bottom: 4px;
-        }
-        .full-width {
-            grid-column: 1 / -1;
-        }
-        .two-thirds {
-            grid-column: 1 / 3;
-        }
-        .one-third {
-            grid-column: 3 / 4;
-        }
-        .results-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            align-items: start;
-        }
-        .metric-box {
-            background: #e8f4f8;
-            padding: 12px;
-            border-radius: 4px;
+        .section li { margin-bottom: 5px; }
+        .full-width { grid-column: 1 / -1; }
+        .two-thirds { grid-column: 1 / 3; }
+        .one-third { grid-column: 3 / 4; }
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f4f8 0%, #d4edda 100%);
+            border-radius: 8px;
+            padding: 18px;
             text-align: center;
+            border: 2px solid #2a5298;
         }
-        .metric-box h3 {
+        .highlight-box h3 {
+            color: #1a2a6c;
             font-size: 0.95em;
-            color: #1e3c72;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
-        .metric-box .value {
-            font-size: 1.6em;
+        .highlight-box .value {
+            font-size: 2em;
             font-weight: bold;
             color: #2a5298;
+        }
+        .workflow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .workflow-step {
+            background: #2a5298;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.82em;
+            font-weight: 600;
+            text-align: center;
+            flex: 1;
+            min-width: 110px;
+        }
+        .workflow-arrow {
+            color: #2a5298;
+            font-size: 1.3em;
+            font-weight: bold;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.85em;
+            font-size: 0.88em;
             margin-top: 8px;
         }
         th, td {
-            border: 1px solid #ddd;
-            padding: 6px;
+            border: 1px solid #d0d7de;
+            padding: 7px;
             text-align: center;
         }
         th {
-            background: #1e3c72;
+            background: #1a2a6c;
             color: white;
+            font-weight: 600;
         }
-        tr:nth-child(even) {
-            background: #f2f2f2;
-        }
+        tr:nth-child(even) { background: #f0f4f8; }
         .figure {
             text-align: center;
-            margin-top: 8px;
+            margin-top: 6px;
         }
         .figure img {
             max-width: 100%;
             height: auto;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.06);
         }
         .caption {
-            font-size: 0.8em;
-            color: #666;
+            font-size: 0.78em;
+            color: #5a6c7d;
             margin-top: 4px;
         }
+        .results-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            align-items: start;
+        }
         .references {
-            font-size: 0.78em;
-            color: #555;
+            font-size: 0.76em;
+            color: #5a6c7d;
+        }
+        .references p { margin-bottom: 4px; }
+        .badge {
+            display: inline-block;
+            background: #2a5298;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-right: 5px;
         }
         @media print {
             body { background: white; padding: 0; }
-            .poster { box-shadow: none; max-width: 100%; }
+            .poster { box-shadow: none; max-width: 100%; border-radius: 0; }
+            .section { break-inside: avoid; }
         }
     </style>
 </head>
@@ -146,13 +178,19 @@
     <div class="poster">
         <div class="header">
             <h1>Predicting the NBA MVP with Machine Learning</h1>
-            <p>A comparison of Naive Bayes and Logistic Regression</p>
+            <p>A Comparative Study of Naive Bayes and Logistic Regression</p>
         </div>
 
         <div class="grid">
+            <!-- Row 1: Motivation + Problem -->
             <div class="section">
                 <h2>Motivation</h2>
-                <p>The NBA MVP is voted by sportswriters, making the decision partly subjective. This project asks whether machine learning can predict the MVP using only objective season statistics, and compares a generative model (Naive Bayes) against a discriminative model (Logistic Regression).</p>
+                <p>The NBA MVP is voted by sportswriters and broadcasters, making the decision partly subjective. This project asks whether machine learning can predict the MVP using only objective season statistics.</p>
+            </div>
+
+            <div class="section">
+                <h2>Problem Statement</h2>
+                <p>Given the top 3 MVP finalists in a season, can we correctly identify the winner using 10 per-game statistics? We compare a <span class="badge">generative</span> model (Naive Bayes) with a <span class="badge">discriminative</span> model (Logistic Regression).</p>
             </div>
 
             <div class="section">
@@ -160,12 +198,31 @@
                 <ul>
                     <li><strong>Source:</strong> Kaggle / Basketball-Reference</li>
                     <li><strong>Seasons:</strong> 2000-01 to 2019-20</li>
-                    <li><strong>Rows:</strong> 60 (20 seasons × top 3 finalists)</li>
-                    <li><strong>Train:</strong> 2000-01 to 2015-16 (48 rows)</li>
-                    <li><strong>Test:</strong> 2016-17 to 2019-20 (12 rows)</li>
+                    <li><strong>Rows:</strong> 60 (20 × top 3 finalists)</li>
+                    <li><strong>Train:</strong> 48 rows (2000-2016)</li>
+                    <li><strong>Test:</strong> 12 rows (2017-2020)</li>
                 </ul>
             </div>
 
+            <!-- Row 2: Workflow -->
+            <div class="section full-width">
+                <h2>Project Workflow</h2>
+                <div class="workflow">
+                    <div class="workflow-step">Download Data</div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">Clean & Label</div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">Split Train/Test</div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">Train Models</div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">Evaluate</div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">Visualize & Report</div>
+                </div>
+            </div>
+
+            <!-- Row 3: Features + Models -->
             <div class="section">
                 <h2>Features</h2>
                 <ul>
@@ -176,26 +233,34 @@
                 </ul>
             </div>
 
-            <div class="section two-thirds">
-                <h2>Methods</h2>
-                <p><strong>Naive Bayes (GaussianNB):</strong> A probabilistic generative classifier that assumes feature independence. Fast and effective on small datasets.</p>
-                <p><strong>Logistic Regression:</strong> A discriminative linear classifier that directly models the probability of the MVP class. Features were standardized before training.</p>
-                <p><strong>Two evaluation modes:</strong></p>
-                <ul>
-                    <li><strong>Pure:</strong> classify any finalist as MVP or not.</li>
-                    <li><strong>Seasonal:</strong> pick exactly one MVP from the three finalists each season.</li>
-                </ul>
+            <div class="section">
+                <h2>Naive Bayes</h2>
+                <p>Probabilistic generative classifier. Assumes features are independent and follow a Gaussian distribution per class. Fast and simple, but the independence assumption is often violated in basketball stats.</p>
             </div>
 
-            <div class="section one-third">
-                <h2>Key Result</h2>
-                <div class="metric-box">
-                    <h3>Best Seasonal Accuracy</h3>
-                    <div class="value">66.7%</div>
-                    <p>Logistic Regression</p>
-                </div>
+            <div class="section">
+                <h2>Logistic Regression</h2>
+                <p>Discriminative linear classifier that learns P(MVP | features) directly. Features are standardized. Outputs probabilities used for both pure and seasonal prediction.</p>
             </div>
 
+            <!-- Row 4: Evaluation modes -->
+            <div class="section">
+                <h2>Pure MVP Mode</h2>
+                <p>Each finalist is independently classified as MVP or non-MVP using a probability threshold of 0.5. Standard binary classification accuracy.</p>
+            </div>
+
+            <div class="section">
+                <h2>Seasonal MVP Mode</h2>
+                <p>One MVP must be chosen per season. The finalist with the highest predicted probability within each season is selected. More realistic and stricter.</p>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Best Result</h3>
+                <div class="value">66.7%</div>
+                <p>Logistic Regression — Seasonal Accuracy</p>
+            </div>
+
+            <!-- Row 5: Results -->
             <div class="section full-width">
                 <h2>Results</h2>
                 <div class="results-grid">
@@ -220,40 +285,56 @@
                                 <td>66.7%</td>
                             </tr>
                         </table>
+                        <p style="margin-top:10px; font-size:0.9em;">
+                            <strong>Key insight:</strong> Logistic Regression wins on the realistic seasonal task. Naive Bayes underperforms because basketball features are correlated, violating its independence assumption.
+                        </p>
                     </div>
                     <div class="figure">
                         <img src="figures/accuracy_comparison.png" alt="Accuracy comparison">
                         <div class="caption">Figure 1: Accuracy across train/test and evaluation modes.</div>
                     </div>
                 </div>
-                <div class="results-grid" style="margin-top: 15px;">
+                <div class="results-grid" style="margin-top: 14px;">
                     <div class="figure">
                         <img src="figures/confusion_matrices.png" alt="Confusion matrices">
                         <div class="caption">Figure 2: Confusion matrices for pure-mode predictions.</div>
                     </div>
                     <div class="figure">
                         <img src="figures/feature_importance.png" alt="Feature importance">
-                        <div class="caption">Figure 3: Logistic Regression coefficients (feature importance).</div>
+                        <div class="caption">Figure 3: Logistic Regression feature importance.</div>
                     </div>
                 </div>
             </div>
 
+            <!-- Row 6: Discussion + Improvements + Future -->
             <div class="section">
                 <h2>Discussion</h2>
-                <p>Logistic Regression outperforms Naive Bayes, especially in seasonal mode. The top predictive features are assists, free-throw percentage, points, blocks, and rebounds. However, the small dataset (60 rows) limits generalization. Models also miss narrative factors such as team wins, media hype, and voter bias.</p>
+                <p>Logistic Regression outperforms Naive Bayes, especially in seasonal mode. Top predictive features are assists, free-throw %, points, blocks, and rebounds. The small dataset and missing voter-narrative factors limit accuracy.</p>
+            </div>
+
+            <div class="section">
+                <h2>Improvements Over Reference</h2>
+                <ul>
+                    <li>Fully scripted, reproducible pipeline</li>
+                    <li>Verified Kaggle dataset source</li>
+                    <li>Two evaluation modes (pure + seasonal)</li>
+                    <li>Feature importance analysis</li>
+                    <li>Professional poster and slides</li>
+                </ul>
             </div>
 
             <div class="section">
                 <h2>Future Work</h2>
                 <ul>
-                    <li>Add team-level features: wins, seed, point differential.</li>
-                    <li>Include advanced stats: PER, win shares, VORP.</li>
-                    <li>Expand the dataset to more seasons.</li>
-                    <li>Try ensemble models: Random Forest, XGBoost.</li>
+                    <li>Add team wins, seed, point differential</li>
+                    <li>Include advanced stats: PER, WS, VORP</li>
+                    <li>Expand to more seasons and all vote-getters</li>
+                    <li>Try ensemble models: RF, XGBoost</li>
                 </ul>
             </div>
 
-            <div class="section references">
+            <!-- Row 7: References -->
+            <div class="section full-width references">
                 <h2>References</h2>
                 <p>1. Basketball-Reference. NBA Player Stats. https://www.basketball-reference.com/</p>
                 <p>2. Kaggle. NBA Player Season Statistics with MVP Win Share. https://www.kaggle.com/datasets/robertsunderhaft/nba-player-season-statistics-with-mvp-win-share</p>
