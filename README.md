@@ -97,5 +97,5 @@ nba-mvp-ml/
 
 ## Team
 
-- <Your Name>
-- <Partner Name>
+- Namrata M Patil PES2UG24AM099
+- Prathith Shetty PES2UG24AM121
